@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import Icon from "@/components/ui/icon";
 
 interface PricingTier {
   name: string;
@@ -10,40 +10,40 @@ interface PricingTier {
 
 const tiers: PricingTier[] = [
   {
-    name: "СТАРТ",
-    price: "1 490 ₽",
-    description: "Для тех, кому нужен второй взгляд.",
+    name: "БАЗОВЫЙ",
+    price: "990 ₽",
+    description: "До 50 сотрудников",
     features: [
-      "500 ИИ-черновиков в месяц",
-      "Стандартная библиотека тонов",
-      "Интеграция с Gmail",
-      "Chrome-расширение",
-      "История контекста 7 дней",
+      "Все основные функции КЭДО",
+      "Интеграция с 1С:ЗУП",
+      "Личный кабинет сотрудника",
+      "Электронная подпись",
+      "Техподдержка в рабочее время",
     ],
   },
   {
-    name: "ПРО",
-    price: "3 990 ₽",
-    description: "Для профессионалов, которые ценят время.",
+    name: "СТАНДАРТ",
+    price: "1 990 ₽",
+    description: "До 200 сотрудников",
     features: [
-      "Безлимитные ИИ-черновики",
-      "Обучение собственному тону",
-      "Все интеграции",
+      "Все из Базового",
+      "Расширенная аналитика",
+      "Мобильное приложение",
       "Приоритетная поддержка",
-      "История контекста 30 дней",
+      "Настройка шаблонов",
     ],
     popular: true,
   },
   {
-    name: "КОМАНДА",
-    price: "7 990 ₽",
-    description: "Для команд, работающих на масштабе.",
+    name: "ПРЕМИУМ",
+    price: "По запросу",
+    description: "Более 200 сотрудников",
     features: [
-      "Всё из Про",
-      "Командная работа",
-      "Админ-панель",
-      "SSO и SAML",
+      "Все из Стандартного",
       "Персональный менеджер",
+      "Поддержка 24/7",
+      "SLA на уровне 99.9%",
+      "Индивидуальные доработки",
     ],
   },
 ];
@@ -53,65 +53,55 @@ const PricingSection = () => {
     <section id="pricing" className="py-24 bg-secondary/30">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <span className="text-xs font-mono text-muted-foreground tracking-wider">ТАРИФЫ</span>
-          <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4">
-            Пишите как профи,
-            <br />
-            платите разумно
+          <span className="text-xs font-mono text-muted-foreground tracking-wider">ЦЕНЫ</span>
+          <h2 className="font-bold text-4xl md:text-5xl mt-4 mb-4">
+            Прозрачные тарифы
           </h2>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <div className="bg-[#fffef0] px-3 py-1 rounded shadow-sm rotate-[-2deg] border border-amber-100">
-              <span className="text-xs font-mono">БЕСПЛАТНЫЙ_ПРОБНЫЙ</span>
-            </div>
-            <p className="text-muted-foreground text-sm">Без скрытых платежей. 14 дней бесплатно</p>
-            <div className="bg-[#fffef0] px-3 py-1 rounded shadow-sm rotate-[2deg] border border-amber-100">
-              <span className="text-xs font-mono">ОДОБРЕНО</span>
-            </div>
-          </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Выберите тариф, который подходит вашей компании. Бесплатный тестовый период 45 дней.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`bg-card border rounded-2xl p-6 relative flex flex-col ${
-                tier.popular ? "border-primary shadow-lg" : "border-border"
+              className={`bg-card border rounded-2xl p-8 relative flex flex-col ${
+                tier.popular ? "border-primary shadow-2xl scale-105" : "border-border"
               }`}
             >
               {tier.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-mono px-3 py-1 rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-4 py-1.5 rounded-full">
                   ПОПУЛЯРНЫЙ
                 </div>
               )}
 
-              <div className="mb-6">
-                <span className="text-xs font-mono text-muted-foreground">{tier.name}</span>
-                <div className="flex items-baseline gap-1 mt-2">
-                  <span className="text-4xl font-serif">{tier.price}</span>
-                  <span className="text-muted-foreground text-sm">/мес</span>
+              <div className="mb-8">
+                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">{tier.name}</h3>
+                <div className="mb-2">
+                  <span className="text-4xl font-bold">{tier.price}</span>
+                  {tier.price !== "По запросу" && <span className="text-muted-foreground text-lg">/мес</span>}
                 </div>
-                <p className="text-sm text-muted-foreground mt-2">{tier.description}</p>
+                <p className="text-muted-foreground">{tier.description}</p>
               </div>
 
-              <div className="space-y-3 flex-1">
+              <div className="space-y-4 flex-1 mb-8">
                 {tier.features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center">
-                      <Check className="w-2.5 h-2.5 text-accent-foreground" />
-                    </div>
+                  <div key={feature} className="flex items-start gap-3">
+                    <Icon name="CheckCircle2" size={20} className="text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-sm">{feature}</span>
                   </div>
                 ))}
               </div>
 
               <button
-                className={`w-full py-3 rounded-full text-sm font-medium transition-colors mt-6 ${
+                className={`w-full py-3 rounded-lg text-sm font-semibold transition-all ${
                   tier.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border border-border hover:bg-secondary"
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl"
+                    : "border-2 border-border hover:border-primary hover:bg-primary/5"
                 }`}
               >
-                НАЧАТЬ
+                {tier.price === "По запросу" ? "Связаться" : "Начать"}
               </button>
             </div>
           ))}

@@ -1,109 +1,108 @@
-import { ArrowRight } from "lucide-react";
+import Icon from "@/components/ui/icon";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden">
-      {/* Main hero area */}
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background to-secondary/20">
+      <div className="max-w-7xl mx-auto px-6 pt-20 pb-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground border border-border rounded-full px-3 py-1">
-              <span>AI-АССИСТЕНТ ДЛЯ ПОЧТЫ V2.0</span>
-            </div>
-
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-balance">
-              Письма, которые
-              <br />
-              пишут себя сами.
+          <div className="space-y-8">
+            <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-balance">
+              1С Кабинет сотрудника
             </h1>
 
-            <p className="text-muted-foreground text-lg max-w-md">
-              Одна краткая мысль от вас. Идеальные, профессиональные ответы каждый раз.
+            <p className="text-muted-foreground text-xl max-w-lg leading-relaxed">
+              Сервис для упрощения кадрового электронного документооборота (КЭДО) и эффективного взаимодействия с сотрудниками в программах 1С
             </p>
 
-            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
-              Попробовать бесплатно
-              <ArrowRight className="w-4 h-4" />
+            <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg text-base font-semibold hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl">
+              Получить консультацию
+              <Icon name="ArrowRight" size={20} />
             </button>
+
+            <div className="grid md:grid-cols-3 gap-4 pt-4">
+              <div className="flex items-start gap-3">
+                <Icon name="CheckCircle2" size={20} className="text-primary mt-1" />
+                <div>
+                  <p className="font-semibold text-sm">Бесплатная</p>
+                  <p className="text-xs text-muted-foreground">демонстрация</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Icon name="CheckCircle2" size={20} className="text-primary mt-1" />
+                <div>
+                  <p className="font-semibold text-sm">Бесплатный доступ</p>
+                  <p className="text-xs text-muted-foreground">на 45 дней</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Icon name="CheckCircle2" size={20} className="text-primary mt-1" />
+                <div>
+                  <p className="font-semibold text-sm">Бесплатная</p>
+                  <p className="text-xs text-muted-foreground">настройка КЭДО</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Right visual */}
           <div className="relative">
-            {/* Interface mockup container */}
-            <div className="relative bg-secondary/50 rounded-3xl p-8 border border-border/50">
-              {/* Top labels */}
-              <div className="flex justify-between text-[10px] font-mono text-muted-foreground mb-4">
-                <span>№01 — ИНТЕРФЕЙС_АССИСТЕНТА</span>
-                <span>БЕЗОПАСНОЕ_СОЕДИНЕНИЕ</span>
+            <div className="relative bg-card rounded-3xl p-8 border border-border shadow-2xl">
+              <div className="flex justify-between items-center text-xs text-muted-foreground mb-6">
+                <span className="font-mono">КАБИНЕТ_СОТРУДНИКА</span>
+                <span className="flex items-center gap-1">
+                  <Icon name="Shield" size={12} />
+                  ЗАЩИЩЕННОЕ_СОЕДИНЕНИЕ
+                </span>
               </div>
 
-              {/* Sticky note */}
-              <div className="absolute -left-4 top-20 bg-[#fffef0] p-3 rounded shadow-sm rotate-[-3deg] border border-amber-100 w-36">
-                <p className="text-xs font-mono text-foreground/80">ЗАМЕТКА</p>
-                <p className="text-sm font-serif italic mt-1">«Бюджета нет до Q2.»</p>
-              </div>
+              <div className="space-y-4">
+                <div className="bg-secondary/50 rounded-xl p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                      <Icon name="FileText" size={20} className="text-primary-foreground" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Трудовой договор</p>
+                      <p className="text-xs text-muted-foreground">На подписании</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button className="flex-1 bg-primary text-primary-foreground py-2 rounded-lg text-xs font-medium">
+                      Подписать
+                    </button>
+                    <button className="px-4 bg-background border border-border py-2 rounded-lg text-xs">
+                      <Icon name="Download" size={14} />
+                    </button>
+                  </div>
+                </div>
 
-              {/* Typewriter keyboard */}
-              <div className="bg-[#4a5d52] rounded-2xl p-6 my-6 mx-auto max-w-sm">
-                <div className="flex justify-between text-[8px] text-white/70 font-mono mb-2 px-2">
-                  <span>АВТОМАТИЧЕСКИЙ ЧЕРНОВИК</span>
-                  <span>ДАТА_ОТПРАВКИ</span>
-                </div>
-                <div className="text-[10px] text-white/80 font-mono mb-4 px-2">
-                  <p>Кому: Совет директоров</p>
-                  <p>Тема: Финансовое планирование Q2</p>
-                </div>
-                <div className="bg-[#3a4a42] rounded-xl p-3">
-                  <div className="grid grid-cols-10 gap-1">
-                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((key) => (
-                      <div
-                        key={key}
-                        className="w-5 h-5 bg-[#2a3a32] rounded text-[8px] text-white/60 flex items-center justify-center font-mono"
-                      >
-                        {key}
-                      </div>
-                    ))}
+                <div className="bg-secondary/50 rounded-xl p-4">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-green-500/10 rounded-full flex items-center justify-center">
+                      <Icon name="CheckCircle" size={20} className="text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Заявление на отпуск</p>
+                      <p className="text-xs text-muted-foreground">Одобрено</p>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-10 gap-1 mt-1">
-                    {["Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З"].map((key) => (
-                      <div
-                        key={key}
-                        className="w-5 h-5 bg-[#2a3a32] rounded text-[8px] text-white/60 flex items-center justify-center font-mono"
-                      >
-                        {key}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="grid grid-cols-9 gap-1 mt-1 px-2">
-                    {["Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д"].map((key) => (
-                      <div
-                        key={key}
-                        className="w-5 h-5 bg-[#2a3a32] rounded text-[8px] text-white/60 flex items-center justify-center font-mono"
-                      >
-                        {key}
-                      </div>
-                    ))}
+                </div>
+
+                <div className="bg-secondary/50 rounded-xl p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-500/10 rounded-full flex items-center justify-center">
+                      <Icon name="Calendar" size={20} className="text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">Расчетный листок</p>
+                      <p className="text-xs text-muted-foreground">Декабрь 2023</p>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Chat bubbles */}
-              <div className="absolute -right-2 top-32 space-y-2">
-                <div className="bg-card border border-border rounded-xl p-3 shadow-sm max-w-[180px]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-6 h-6 bg-secondary rounded-full" />
-                    <span className="text-xs font-medium">Иван Петров</span>
-                    <span className="text-[10px] text-muted-foreground">ДИРЕКТОР</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">Добрый день,</p>
-                </div>
-
-                <div className="bg-card border border-border rounded-xl p-3 shadow-sm max-w-[200px]">
-                  <p className="text-xs text-muted-foreground">
-                    Спасибо за информацию. Мы понимаем ограничения по бюджету и вернёмся к этому...
-                  </p>
-                </div>
+              <div className="absolute -right-4 top-24 bg-yellow-50 p-3 rounded-lg shadow-lg rotate-3 border border-yellow-200 max-w-[160px]">
+                <p className="text-xs font-semibold text-yellow-900">Все документы</p>
+                <p className="text-xs text-yellow-800 mt-1">в одном месте! 🚀</p>
               </div>
             </div>
           </div>

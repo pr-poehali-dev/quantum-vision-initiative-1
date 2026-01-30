@@ -14,22 +14,31 @@ const Header = () => {
 
         <nav className="hidden lg:flex items-center gap-6">
           <a href="#when-needed" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Когда нужен
+            Кому нужен
           </a>
-          <a href="#advantages" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Преимущества
+          <a href="#why-kedo" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Зачем КЭДО
           </a>
           <a href="#how-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Как работает
           </a>
-          <a href="#migration" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Переход на КЭДО
+          <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Возможности
+          </a>
+          <a href="#mobile-app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Мобильное приложение
+          </a>
+          <a href="#gallery" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Скриншоты
+          </a>
+          <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Тарифы
           </a>
           <a href="#video" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Видео
           </a>
-          <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            Цены
+          <a href="#conditions" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Условия
           </a>
           <a href="#faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             FAQ
@@ -37,7 +46,16 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-4">
-          <a href="tel:+74951234567" className="hidden md:flex items-center gap-2 text-sm font-medium">
+          <a 
+            href="https://t.me/your_channel" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hidden md:flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Icon name="Send" size={18} />
+            Telegram
+          </a>
+          <a href="tel:+74951234567" className="hidden lg:flex items-center gap-2 text-sm font-medium">
             <Icon name="Phone" size={16} />
             +7 (495) 123-45-67
           </a>

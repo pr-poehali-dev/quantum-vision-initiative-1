@@ -29,7 +29,7 @@ const ConditionsSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-background">
+    <section id="conditions" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <span className="text-xs font-mono text-muted-foreground tracking-wider">ТРЕБОВАНИЯ</span>

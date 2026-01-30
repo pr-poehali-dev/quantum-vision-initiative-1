@@ -35,7 +35,7 @@ const GallerySection = () => {
   ];
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="gallery" className="py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <span className="text-xs font-mono text-muted-foreground tracking-wider">ИНТЕРФЕЙС</span>

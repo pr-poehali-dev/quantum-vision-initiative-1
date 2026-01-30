@@ -1,12 +1,13 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import WhenNeededSection from "@/components/WhenNeededSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import WhyKEDOSection from "@/components/WhyKEDOSection";
 import WorkflowSection from "@/components/WorkflowSection";
-import MigrationSection from "@/components/MigrationSection";
-import VideoSection from "@/components/VideoSection";
-import NewsSection from "@/components/NewsSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import MobileAppSection from "@/components/MobileAppSection";
 import PricingSection from "@/components/PricingSection";
+import VideoSection from "@/components/VideoSection";
+import ConditionsSection from "@/components/ConditionsSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 
@@ -16,12 +17,13 @@ const Index = () => {
       <Header />
       <HeroSection />
       <WhenNeededSection />
-      <FeaturesSection />
+      <WhyKEDOSection />
       <WorkflowSection />
-      <MigrationSection />
-      <VideoSection />
-      <NewsSection />
+      <FeaturesSection />
+      <MobileAppSection />
       <PricingSection />
+      <VideoSection />
+      <ConditionsSection />
       <FAQSection />
       <Footer />
     </main>

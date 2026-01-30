@@ -10,26 +10,32 @@ interface WorkflowStep {
 const steps: WorkflowStep[] = [
   {
     number: "01",
-    title: "Создание документа",
-    description: "HR создает документ в 1С и отправляет сотруднику на подписание",
+    title: "Формирование документов",
+    description: "Кадровая служба формирует документы в «1С»",
     icon: "FileText",
   },
   {
     number: "02",
-    title: "Уведомление",
-    description: "Сотрудник получает уведомление и переходит в личный кабинет",
-    icon: "Bell",
+    title: "Автоматическая отправка",
+    description: "Документы автоматически появляются в личном кабинете сотрудника",
+    icon: "Send",
   },
   {
     number: "03",
-    title: "Подписание",
-    description: "Ознакомление с документом и подпись с любого устройства",
+    title: "Подписание онлайн",
+    description: "Сотрудник подписывает их онлайн или отправляет свои заявления",
     icon: "PenTool",
   },
   {
     number: "04",
-    title: "Хранение",
-    description: "Документ автоматически сохраняется в 1С с юридической значимостью",
+    title: "Согласование",
+    description: "Руководитель согласовывает документы в пару кликов",
+    icon: "CheckCircle",
+  },
+  {
+    number: "05",
+    title: "Хранение в базе",
+    description: "Подписанные документы возвращаются в «1С» и хранятся в программе",
     icon: "Archive",
   },
 ];
@@ -43,12 +49,12 @@ const WorkflowSection = () => {
           <h2 className="font-bold text-4xl md:text-5xl mt-4 leading-tight">
             Как работает сервис
           </h2>
-          <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Простой и прозрачный процесс электронного документооборота
+          <p className="text-muted-foreground text-lg mt-4 max-w-3xl mx-auto">
+            «1С:Кабинет сотрудника» встроен в программы «1С», поэтому бухгалтеры и кадровики продолжат работать в знакомом интерфейсе. Доступ в личный кабинет возможен через браузер или мобильное приложение (iOS/Android).
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
           {steps.map((step, index) => (
             <div key={step.number} className="relative">
               <div className="bg-card border border-border rounded-2xl p-6 h-full hover:shadow-lg transition-shadow">

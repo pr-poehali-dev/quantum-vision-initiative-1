@@ -7,10 +7,10 @@ const VideoSection = () => {
         <div className="text-center mb-12">
           <span className="text-xs font-mono text-muted-foreground tracking-wider">ДЕМОНСТРАЦИЯ</span>
           <h2 className="font-bold text-4xl md:text-5xl mt-4 leading-tight">
-            Посмотрите, как это работает
+            Видео о работе сервиса
           </h2>
           <p className="text-muted-foreground text-lg mt-4">
-            Короткий видеообзор возможностей системы
+            Узнайте больше о возможностях 1С:Кабинет сотрудника
           </p>
         </div>
 

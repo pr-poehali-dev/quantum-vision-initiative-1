@@ -11,7 +11,7 @@ const HeroSection = () => {
             </h1>
 
             <p className="text-muted-foreground text-xl max-w-lg leading-relaxed">
-              Сервис для упрощения кадрового электронного документооборота (КЭДО) и эффективного взаимодействия с сотрудниками в программах 1С
+              Сервис, который помогает компаниям быстро и безопасно перейти на кадровый электронный документооборот (КЭДО) в программах «1С». Сотрудники получают удобный личный кабинет, а кадровая служба — автоматизацию рутинных процессов и снижение нагрузки.
             </p>
 
             <button className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg text-base font-semibold hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl">

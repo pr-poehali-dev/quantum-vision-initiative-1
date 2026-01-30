@@ -3,24 +3,34 @@ import Icon from "@/components/ui/icon";
 const WhenNeededSection = () => {
   const cases = [
     {
-      icon: "Building2",
-      title: "Средний и крупный бизнес",
-      description: "Компании со штатом от 50 сотрудников, где важна скорость обработки кадровых документов"
+      icon: "Users",
+      title: "Много сотрудников и документов",
+      description: "Большой объем кадровых документов требует автоматизации процессов"
     },
     {
-      icon: "Scale",
-      title: "Соблюдение законодательства",
-      description: "Организации, которым необходимо соответствовать требованиям 122-ФЗ о КЭДО"
+      icon: "MessageSquare",
+      title: "Много обращений в кадры",
+      description: "Большое количество личных обращений в бухгалтерию и кадровую службу"
     },
     {
-      icon: "TrendingUp",
-      title: "Растущие компании",
-      description: "Бизнес в стадии активного роста с постоянным наймом новых сотрудников"
+      icon: "Home",
+      title: "Удаленная работа",
+      description: "Есть специалисты, работающие удаленно или в вахтовом формате"
     },
     {
       icon: "MapPin",
-      title: "Распределенные команды",
-      description: "Компании с филиалами в разных городах или удаленными сотрудниками"
+      title: "Распределенные офисы",
+      description: "Нет единого офиса или филиалы распределены по разным регионам"
+    },
+    {
+      icon: "Plane",
+      title: "Частые командировки",
+      description: "Сотрудники часто находятся в командировках"
+    },
+    {
+      icon: "TrendingUp",
+      title: "Повышение прозрачности",
+      description: "Есть потребность повысить прозрачность и скорость кадровых процессов"
     }
   ];
 
@@ -30,23 +40,23 @@ const WhenNeededSection = () => {
         <div className="text-center mb-16">
           <span className="text-xs font-mono text-muted-foreground tracking-wider">ПРИМЕНЕНИЕ</span>
           <h2 className="font-bold text-4xl md:text-5xl mt-4 leading-tight">
-            Когда нужен 1С Кабинет сотрудника
+            Кому нужен 1С:Кабинет сотрудника
           </h2>
           <p className="text-muted-foreground text-lg mt-4 max-w-2xl mx-auto">
-            Решение для компаний, которые ценят время и хотят оптимизировать кадровые процессы
+            Сервис будет полезен компаниям, у которых:
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cases.map((item, index) => (
-            <div key={index} className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow">
+            <div key={index} className="bg-card border border-border rounded-2xl p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Icon name={item.icon} size={28} className="text-primary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Icon name={item.icon} size={24} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
+                  <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm">{item.description}</p>
                 </div>
               </div>
             </div>

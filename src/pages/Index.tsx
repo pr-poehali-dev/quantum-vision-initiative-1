@@ -5,6 +5,7 @@ import WhyKEDOSection from "@/components/WhyKEDOSection";
 import WorkflowSection from "@/components/WorkflowSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import MobileAppSection from "@/components/MobileAppSection";
+import GallerySection from "@/components/GallerySection";
 import PricingSection from "@/components/PricingSection";
 import VideoSection from "@/components/VideoSection";
 import ConditionsSection from "@/components/ConditionsSection";
@@ -21,6 +22,7 @@ const Index = () => {
       <WorkflowSection />
       <FeaturesSection />
       <MobileAppSection />
+      <GallerySection />
       <PricingSection />
       <VideoSection />
       <ConditionsSection />

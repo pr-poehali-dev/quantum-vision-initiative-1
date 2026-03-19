@@ -6,7 +6,7 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto px-6 pt-20 pb-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
-            <h1 className="font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-balance">
+            <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-balance">
               1С Кабинет сотрудника
             </h1>
 

@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1С Кабинет сотрудника — КЭДО</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    :root {
+      --primary: #2d4a3e;
+      --primary-light: #e8f0ec;
+      --secondary-bg: #f5f3ee;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--secondary-bg);
+      color: #1a1a1a;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: rgba(245, 243, 238, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar-brand .logo-box {
+      width: 32px; height: 32px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff;
+    }
+    .navbar .nav-link {
+      color: var(--muted) !important;
+      font-size: 13px;
+    }
+    .navbar .nav-link:hover { color: #1a1a1a !important; }
+    .btn-primary-custom {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .btn-primary-custom:hover { background: #3a5e50; color: #fff; }
+
+    /* HERO */
+    .hero-section {
+      background: linear-gradient(to bottom, var(--secondary-bg), #e8ebe6);
+      padding: 80px 0 96px;
+    }
+    .hero-section h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; }
+    .hero-section .lead { color: var(--muted); font-size: 1.1rem; line-height: 1.7; }
+    .hero-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+    }
+    .hero-doc-item {
+      background: #f9f8f5;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .doc-icon-wrap {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; }
+    .check-item i { color: var(--primary); margin-top: 2px; flex-shrink: 0; }
+
+    /* SECTIONS */
+    .section-label {
+      font-size: 11px; font-family: monospace;
+      color: var(--muted); letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .section-title { font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); }
+    .section-muted { color: var(--muted); font-size: 1.05rem; }
+
+    .bg-light-green { background: #f0f4f2; }
+    .bg-off-white { background: var(--secondary-bg); }
+
+    /* CARDS */
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      height: 100%;
+      transition: box-shadow 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .feature-card .icon-wrap {
+      width: 48px; height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      color: var(--primary);
+      font-size: 22px;
+    }
+
+    /* WORKFLOW */
+    .workflow-step { text-align: center; }
+    .step-number {
+      width: 56px; height: 56px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.25rem;
+      margin: 0 auto 16px;
+    }
+    .step-icon {
+      width: 48px; height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      color: var(--primary); font-size: 20px;
+    }
+
+    /* FEATURES TABS */
+    .features-tab-btn {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #1a1a1a;
+    }
+    .features-tab-btn:hover,
+    .features-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .features-panel { display: none; }
+    .features-panel.active { display: block; }
+    .feature-check-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px;
+    }
+    .feature-check-item .check-circle {
+      width: 20px; height: 20px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--primary); font-size: 11px;
+    }
+
+    /* PRICING */
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+    .price-card .price-icon {
+      width: 48px; height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary); font-size: 20px;
+    }
+    .price-badge {
+      font-size: 12px;
+      background: #f0f4f2;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .price-amount { font-size: 1.8rem; font-weight: 800; }
+    .btn-outline-custom {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      font-size: 14px; font-weight: 500;
+      padding: 10px;
+      width: 100%;
+      transition: all 0.2s;
+      color: #1a1a1a;
+    }
+    .btn-outline-custom:hover { border-color: var(--primary); background: var(--primary-light); }
+
+    /* GALLERY */
+    .gallery-img {
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: #e8ebe6;
+      aspect-ratio: 16/10;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-img img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-caption { font-size: 13px; color: var(--muted); margin-top: 8px; text-align: center; }
+
+    /* MOBILE APP */
+    .mobile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .mobile-phone-mock {
+      background: #1a1a1a;
+      border-radius: 28px;
+      padding: 16px;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .mobile-screen {
+      background: #f5f3ee;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 360px;
+    }
+    .mobile-stat {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 8px 12px;
+      flex: 1;
+      text-align: center;
+    }
+    .mobile-notif {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #1a1a1a; color: #fff;
+      border-radius: 10px; padding: 10px 20px;
+      text-decoration: none; font-size: 13px;
+      transition: opacity 0.2s;
+    }
+    .store-btn:hover { opacity: 0.85; color: #fff; }
+
+    /* CONDITIONS */
+    .condition-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .program-badge {
+      display: flex; align-items: center; gap: 10px;
+      background: #f9f8f5;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .req-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .req-item:last-child { border-bottom: none; }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 18px 20px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    .faq-question:hover { background: #fafaf9; }
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .faq-answer.open {
+      max-height: 400px;
+      padding: 0 20px 18px;
+    }
+    .faq-icon { transition: transform 0.3s; flex-shrink: 0; }
+    .faq-icon.open { transform: rotate(180deg); }
+
+    /* CTA */
+    .cta-banner {
+      background: var(--primary);
+      border-radius: 20px;
+      padding: 48px;
+      color: #fff;
+    }
+    .cta-banner h2 { font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: opacity 0.2s;
+    }
+    .btn-white:hover { opacity: 0.9; color: var(--primary); }
+
+    /* VIDEO */
+    .video-placeholder {
+      background: #1a1a1a;
+      border-radius: 16px;
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .play-btn {
+      width: 72px; height: 72px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 28px;
+      transition: transform 0.2s;
+    }
+    .video-placeholder:hover .play-btn { transform: scale(1.1); }
+
+    /* FOOTER */
+    footer { background: #1a1a1a; color: #e5e7eb; padding: 60px 0 30px; }
+    footer a { color: #9ca3af; text-decoration: none; font-size: 14px; }
+    footer a:hover { color: #fff; }
+    footer .footer-title { font-weight: 600; font-size: 15px; color: #fff; margin-bottom: 16px; }
+    footer .footer-logo .logo-box { background: var(--primary); }
+    footer hr { border-color: #374151; }
+    footer .copyright { font-size: 13px; color: #6b7280; }
+
+    /* HIDDEN TIERS */
+    .hidden-tiers { display: none; }
+    .hidden-tiers.visible { display: flex; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top py-3">
+  <div class="container-xl">
+    <a class="navbar-brand d-flex align-items-center gap-2 text-dark text-decoration-none fw-semibold" href="#">
+      <span class="logo-box">1С</span>
+      Кабинет сотрудника
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="#when-needed">Кому нужен</a></li>
+        <li class="nav-item"><a class="nav-link" href="#why-kedo">Зачем КЭДО</a></li>
+        <li class="nav-item"><a class="nav-link" href="#how-works">Как работает</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Возможности</a></li>
+        <li class="nav-item"><a class="nav-link" href="#mobile-app">Мобильное приложение</a></li>
+        <li class="nav-item"><a class="nav-link" href="#gallery">Скриншоты</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">Тарифы</a></li>
+        <li class="nav-item"><a class="nav-link" href="#video">Видео</a></li>
+        <li class="nav-item"><a class="nav-link" href="#conditions">Условия</a></li>
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        <a href="https://t.me/your_channel" target="_blank" class="d-none d-md-flex align-items-center gap-1 text-decoration-none" style="color:var(--muted); font-size:14px;">
+          <i class="bi bi-telegram"></i> Telegram
+        </a>
+        <a href="tel:+74951234567" class="d-none d-lg-flex align-items-center gap-1 text-decoration-none" style="color:#1a1a1a; font-size:14px;">
+          <i class="bi bi-telephone"></i> +7 (495) 123-45-67
+        </a>
+        <button class="btn-primary-custom">Оставить заявку</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section">
+  <div class="container-xl">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="mb-4">1С Кабинет сотрудника</h1>
+        <p class="lead mb-5">
+          Сервис, который помогает компаниям быстро и безопасно перейти на кадровый электронный
+          документооборот (КЭДО) в программах «1С». Сотрудники получают удобный личный кабинет,
+          а кадровая служба — автоматизацию рутинных процессов и снижение нагрузки.
+        </p>
+        <a href="#" class="btn btn-lg text-white mb-5 d-inline-flex align-items-center gap-2" style="background:var(--primary); border-radius:10px; font-weight:600;">
+          Получить консультацию <i class="bi bi-arrow-right"></i>
+        </a>
+        <div class="row g-3">
+          <div class="col-4">
+            <div class="check-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <div>
+                <div class="fw-semibold" style="font-size:13px;">Бесплатная</div>
+                <div style="font-size:12px; color:var(--muted);">демонстрация</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="check-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <div>
+                <div class="fw-semibold" style="font-size:13px;">Бесплатный доступ</div>
+                <div style="font-size:12px; color:var(--muted);">на 45 дней</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="check-item">
+              <i class="bi bi-check-circle-fill"></i>
+              <div>
+                <div class="fw-semibold" style="font-size:13px;">Бесплатная</div>
+                <div style="font-size:12px; color:var(--muted);">настройка КЭДО</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-card">
+          <div class="d-flex justify-content-between align-items-center mb-4" style="font-size:11px; font-family:monospace; color:var(--muted);">
+            <span>КАБИНЕТ_СОТРУДНИКА</span>
+            <span><i class="bi bi-shield-check me-1"></i>ЗАЩИЩЁННОЕ_СОЕДИНЕНИЕ</span>
+          </div>
+          <div class="hero-doc-item">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="doc-icon-wrap" style="background:var(--primary-light);">
+                <i class="bi bi-file-text" style="color:var(--primary); font-size:18px;"></i>
+              </div>
+              <div>
+                <div class="fw-semibold" style="font-size:14px;">Трудовой договор</div>
+                <div style="font-size:12px; color:var(--muted);">На подписании</div>
+              </div>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn flex-grow-1 text-white btn-sm" style="background:var(--primary); border-radius:8px; font-size:13px;">Подписать</button>
+              <button class="btn btn-sm border" style="border-radius:8px;"><i class="bi bi-download"></i></button>
+            </div>
+          </div>
+          <div class="hero-doc-item">
+            <div class="d-flex align-items-center gap-3">
+              <div class="doc-icon-wrap" style="background:#dcfce7;">
+                <i class="bi bi-check-circle" style="color:#16a34a; font-size:18px;"></i>
+              </div>
+              <div>
+                <div class="fw-semibold" style="font-size:14px;">Заявление на отпуск</div>
+                <div style="font-size:12px; color:var(--muted);">Одобрено</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-doc-item mb-0">
+            <div class="d-flex align-items-center gap-3">
+              <div class="doc-icon-wrap" style="background:#dbeafe;">
+                <i class="bi bi-calendar3" style="color:#2563eb; font-size:18px;"></i>
+              </div>
+              <div>
+                <div class="fw-semibold" style="font-size:14px;">Расчетный листок</div>
+                <div style="font-size:12px; color:var(--muted);">Декабрь 2023</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHEN NEEDED -->
+<section id="when-needed" class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ПРИМЕНЕНИЕ</div>
+      <h2 class="section-title mb-3">Кому нужен 1С:Кабинет сотрудника</h2>
+      <p class="section-muted mx-auto" style="max-width:600px;">Сервис будет полезен компаниям любого размера в различных ситуациях</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-files"></i></div>
+          <h5 class="fw-bold mb-2">Много сотрудников и документов</h5>
+          <p style="color:var(--muted); font-size:14px;">Компании с большим количеством кадровых документов, которые тратят значительные ресурсы на их обработку, хранение и поиск.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-chat-dots"></i></div>
+          <h5 class="fw-bold mb-2">Много обращений в кадры</h5>
+          <p style="color:var(--muted); font-size:14px;">Организации, где сотрудники часто обращаются за справками, расчётными листками и другими документами в HR-отдел или бухгалтерию.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-house-door"></i></div>
+          <h5 class="fw-bold mb-2">Удаленная работа</h5>
+          <p style="color:var(--muted); font-size:14px;">Компании с удалёнными сотрудниками, которым сложно физически приходить в офис для подписания документов.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-geo-alt"></i></div>
+          <h5 class="fw-bold mb-2">Распределенные офисы</h5>
+          <p style="color:var(--muted); font-size:14px;">Организации с несколькими филиалами или офисами в разных городах, где необходима единая система управления документами.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-airplane"></i></div>
+          <h5 class="fw-bold mb-2">Частые командировки</h5>
+          <p style="color:var(--muted); font-size:14px;">Компании с сотрудниками, которые часто находятся в разъездах и не могут лично присутствовать при оформлении документов.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-eye"></i></div>
+          <h5 class="fw-bold mb-2">Повышение прозрачности</h5>
+          <p style="color:var(--muted); font-size:14px;">Организации, стремящиеся повысить прозрачность и скорость HR-процессов, снизить количество ошибок и ускорить документооборот.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY KEDO -->
+<section id="why-kedo" class="py-5 bg-light-green">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ПРЕИМУЩЕСТВА</div>
+      <h2 class="section-title mb-3">Зачем переходить на КЭДО</h2>
+      <p class="section-muted mx-auto" style="max-width:600px;">Электронный документооборот — это не просто модно, это выгодно и удобно</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-lightning-charge"></i></div>
+          <h5 class="fw-bold mb-2">Ускорение процессов</h5>
+          <p style="color:var(--muted); font-size:14px;">Сотрудники могут подавать заявления и подписывать документы онлайн в любое время, без необходимости лично приходить в HR-отдел.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-shield-check"></i></div>
+          <h5 class="fw-bold mb-2">Снижение риска ошибок</h5>
+          <p style="color:var(--muted); font-size:14px;">Данные из заявлений сотрудников автоматически загружаются в программу «1С», исключая ручной ввод и связанные с ним ошибки.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-award"></i></div>
+          <h5 class="fw-bold mb-2">Соблюдение законодательства</h5>
+          <p style="color:var(--muted); font-size:14px;">Использование электронной подписи обеспечивает юридическую значимость документов в полном соответствии с законодательством РФ.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-phone"></i></div>
+          <h5 class="fw-bold mb-2">Удобство для сотрудников</h5>
+          <p style="color:var(--muted); font-size:14px;">Личный кабинет доступен через браузер или мобильное приложение — работайте с документами из любой точки мира.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-piggy-bank"></i></div>
+          <h5 class="fw-bold mb-2">Экономия ресурсов</h5>
+          <p style="color:var(--muted); font-size:14px;">Значительное сокращение расходов на бумагу, печать, хранение документов и курьерскую доставку между подразделениями.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card">
+          <div class="icon-wrap"><i class="bi bi-pen"></i></div>
+          <h5 class="fw-bold mb-2">Удаленное подписание</h5>
+          <p style="color:var(--muted); font-size:14px;">Сотрудники на удалённой работе или в командировках могут подписывать документы без необходимости физически присутствовать в офисе.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WORKS -->
+<section id="how-works" class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ПРОЦЕСС</div>
+      <h2 class="section-title mb-3">Как работает сервис</h2>
+      <p class="section-muted mx-auto" style="max-width:600px;">Простой и понятный процесс для всех участников</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-lg">
+        <div class="workflow-step">
+          <div class="step-icon mb-2"><i class="bi bi-file-earmark-plus"></i></div>
+          <div class="step-number">1</div>
+          <h6 class="fw-bold mb-2">Формирование документов</h6>
+          <p style="color:var(--muted); font-size:13px;">Кадровый специалист создаёт документы в программе «1С» в привычном интерфейсе</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg">
+        <div class="workflow-step">
+          <div class="step-icon mb-2"><i class="bi bi-send"></i></div>
+          <div class="step-number">2</div>
+          <h6 class="fw-bold mb-2">Автоматическая отправка</h6>
+          <p style="color:var(--muted); font-size:13px;">Документы автоматически появляются в личном кабинете сотрудника с push-уведомлением</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg">
+        <div class="workflow-step">
+          <div class="step-icon mb-2"><i class="bi bi-pen"></i></div>
+          <div class="step-number">3</div>
+          <h6 class="fw-bold mb-2">Подписание онлайн</h6>
+          <p style="color:var(--muted); font-size:13px;">Сотрудник подписывает документ электронной подписью или подаёт заявление</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg">
+        <div class="workflow-step">
+          <div class="step-icon mb-2"><i class="bi bi-check2-square"></i></div>
+          <div class="step-number">4</div>
+          <h6 class="fw-bold mb-2">Согласование</h6>
+          <p style="color:var(--muted); font-size:13px;">Руководитель согласует заявление одним нажатием прямо в своём кабинете</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg">
+        <div class="workflow-step">
+          <div class="step-icon mb-2"><i class="bi bi-database-check"></i></div>
+          <div class="step-number">5</div>
+          <h6 class="fw-bold mb-2">Хранение в базе</h6>
+          <p style="color:var(--muted); font-size:13px;">Подписанный документ автоматически возвращается в базу «1С» и хранится там</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-5 bg-light-green">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ФУНКЦИОНАЛ</div>
+      <h2 class="section-title mb-3">Возможности 1С:Кабинет сотрудника</h2>
+      <p class="section-muted mx-auto" style="max-width:600px;">Сервис охватывает весь цикл взаимодействий сотрудника и кадровой службы, бухгалтерии</p>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+      <button class="features-tab-btn active" onclick="switchTab('documents', this)"><i class="bi bi-file-text me-1"></i>Документы и заявления</button>
+      <button class="features-tab-btn" onclick="switchTab('vacation', this)"><i class="bi bi-calendar me-1"></i>Отпуска и отсутствия</button>
+      <button class="features-tab-btn" onclick="switchTab('certificates', this)"><i class="bi bi-file-earmark-check me-1"></i>Справки</button>
+      <button class="features-tab-btn" onclick="switchTab('payslips', this)"><i class="bi bi-receipt me-1"></i>Расчетные листки</button>
+      <button class="features-tab-btn" onclick="switchTab('personal', this)"><i class="bi bi-person me-1"></i>Личные данные</button>
+    </div>
+
+    <div class="bg-white border rounded-4 p-4 p-md-5">
+      <div id="tab-documents" class="features-panel active">
+        <div class="row g-3">
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Обмен любыми необходимыми кадровыми документами (кроме акта о несчастном случае, приказа об увольнении, инструктажей)</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Отправка произвольного документа в формате pdf (например, поздравления, графика отпусков или любой другой информации)</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Отправка документов в личный кабинет сотрудника прямо из программы «1С»</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Согласование документов руководителями</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Ознакомление сотрудников с документами</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Хранение оригиналов кадровых документов непосредственно в базе «1С»</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Создание и использование собственных шаблонов документов</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Автоматическая загрузка данных из заявлений сотрудников в программу «1С»</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Распределение обработки заявлений между ответственными сотрудниками</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Просмотр статусов документов, отправленных на согласование и подписания</span></div></div>
+        </div>
+      </div>
+      <div id="tab-vacation" class="features-panel">
+        <div class="row g-3">
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Калькулятор остатка отпуска</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Подача заявления на отпуск в электронном виде</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Подача уведомления об отсутствии</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Согласование отпусков и отсутствий руководителем</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Формирование графика отпусков</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Уведомление коллег о планируемом отсутствии</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Просмотр графика отсутствий других сотрудников</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Фиксация начала и конца рабочего дня сотрудника</span></div></div>
+        </div>
+      </div>
+      <div id="tab-certificates" class="features-panel">
+        <div class="row g-3">
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Запрос различных видов справок через личный кабинет</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Получение юридически значимых справок в электронном виде</span></div></div>
+        </div>
+      </div>
+      <div id="tab-payslips" class="features-panel">
+        <div class="row g-3">
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Автоматическая выдача расчетных листков в электронном виде</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Просмотр, скачивание и подписание расчетных листков онлайн</span></div></div>
+        </div>
+      </div>
+      <div id="tab-personal" class="features-panel">
+        <div class="row g-3">
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Заявка сотрудников на изменение личных данных</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Доступ руководителей к личным данным сотрудников</span></div></div>
+          <div class="col-md-6"><div class="feature-check-item"><div class="check-circle"><i class="bi bi-check"></i></div><span style="font-size:14px;color:var(--muted);">Просмотр структуры компании и карточек коллег</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE APP -->
+<section id="mobile-app" class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="section-label mb-2">МОБИЛЬНОЕ ПРИЛОЖЕНИЕ</div>
+        <h2 class="section-title mb-3">Мобильное приложение 1С:Кабинет сотрудника</h2>
+        <p class="section-muted mb-5">Доступно для iOS и Android. Работайте с документами в любом месте и в любое время</p>
+        <div class="row g-3 mb-5">
+          <div class="col-12">
+            <div class="mobile-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon-wrap flex-shrink-0"><i class="bi bi-bell"></i></div>
+                <div><h6 class="fw-bold mb-1">Уведомления</h6><p style="font-size:13px;color:var(--muted);margin:0;">Push-уведомления о новых документах и заявлениях</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mobile-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon-wrap flex-shrink-0"><i class="bi bi-pen"></i></div>
+                <div><h6 class="fw-bold mb-1">Подписание</h6><p style="font-size:13px;color:var(--muted);margin:0;">Подписывайте документы электронной подписью прямо со смартфона</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mobile-card">
+              <div class="d-flex align-items-start gap-3">
+                <div class="icon-wrap flex-shrink-0"><i class="bi bi-sun"></i></div>
+                <div><h6 class="fw-bold mb-1">Отпуска</h6><p style="font-size:13px;color:var(--muted);margin:0;">Подавайте заявления на отпуск и отслеживайте их статус</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="#" class="store-btn"><i class="bi bi-apple" style="font-size:22px;"></i><div><div style="font-size:10px;opacity:.7;">Доступно в</div><div style="font-weight:600;">App Store</div></div></a>
+          <a href="#" class="store-btn"><i class="bi bi-google-play" style="font-size:22px;"></i><div><div style="font-size:10px;opacity:.7;">Доступно в</div><div style="font-weight:600;">Google Play</div></div></a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-flex justify-content-center">
+        <div class="mobile-phone-mock">
+          <div class="mobile-screen">
+            <div class="fw-bold mb-1" style="font-size:14px;">Добрый день, Иван!</div>
+            <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Иван Петров</div>
+            <div class="d-flex gap-2 mb-3">
+              <div class="mobile-stat"><div class="fw-bold" style="font-size:16px;color:var(--primary);">3</div><div style="font-size:10px;color:var(--muted);">Новых</div></div>
+              <div class="mobile-stat"><div class="fw-bold" style="font-size:16px;">12</div><div style="font-size:10px;color:var(--muted);">Подписано</div></div>
+              <div class="mobile-stat"><div class="fw-bold" style="font-size:16px;">28</div><div style="font-size:10px;color:var(--muted);">Дней отп.</div></div>
+            </div>
+            <div style="font-size:11px;font-weight:600;margin-bottom:8px;">Новые уведомления</div>
+            <div class="mobile-notif"><div class="fw-semibold" style="font-size:12px;">Трудовой договор</div><div style="color:var(--muted);">Требует подписания</div></div>
+            <div class="mobile-notif"><div class="fw-semibold" style="font-size:12px;">Расчетный листок</div><div style="color:var(--muted);">Декабрь — доступен</div></div>
+            <div class="mobile-notif"><div class="fw-semibold" style="font-size:12px;">Заявление на отпуск</div><div style="color:#16a34a;">Одобрено руководителем</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-5 bg-light-green">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ИНТЕРФЕЙС</div>
+      <h2 class="section-title mb-3">Скриншоты системы</h2>
+      <p class="section-muted">Посмотрите, как выглядит сервис изнутри</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot1.png" alt="Личный кабинет сотрудника" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Личный кабинет сотрудника</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot2.png" alt="Просмотр расчетного листка" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Просмотр расчетного листка</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot3.png" alt="Подача заявления на отпуск" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Подача заявления на отпуск</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot4.png" alt="Подписание документа ЭП" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Подписание документа электронной подписью</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot5.png" alt="История документов" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">История подписанных документов</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot6.png" alt="Уведомления" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Уведомления о новых документах</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot7.png" alt="Настройки профиля" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Настройки профиля и безопасности</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="gallery-img">
+          <img src="https://cdn.poehali.dev/projects/0ffccfec-6d1c-460b-afd2-f09f9570aaa9/files/screenshot8.png" alt="Мобильное приложение" onerror="this.style.display='none'" />
+        </div>
+        <div class="gallery-caption">Мобильное приложение для iOS и Android</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ЦЕНЫ</div>
+      <h2 class="section-title mb-3">Стоимость</h2>
+      <p class="section-muted">Выберите тариф под размер вашей компании</p>
+    </div>
+
+    <div class="border border-2 rounded-4 p-4 p-md-5 text-center mb-5 mx-auto" style="max-width:700px; border-color:var(--primary) !important; background:var(--primary-light);">
+      <i class="bi bi-gift" style="font-size:36px; color:var(--primary);"></i>
+      <h3 class="fw-bold mt-3 mb-2">Попробуйте сервис бесплатно!</h3>
+      <p style="color:var(--muted);" class="mb-4">Получите полный доступ к 1С:Кабинет сотрудника на 45 дней без ограничений</p>
+      <a href="#" class="btn text-white d-inline-flex align-items-center gap-2" style="background:var(--primary); border-radius:8px; font-weight:600; padding:12px 28px;">
+        Оставить заявку <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <h3 class="fw-bold text-center mb-4">Основные тарифы</h3>
+    <div class="row g-4" id="pricing-rows">
+      <div class="col-md-6 col-lg-4 pricing-main">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">10 сотрудников</h5>
+          <div class="price-amount mb-3">3 360 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-main">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">25 сотрудников</h5>
+          <div class="price-amount mb-3">8 400 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-main">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">50 сотрудников</h5>
+          <div class="price-amount mb-3">16 800 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-extra d-none">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">100 сотрудников</h5>
+          <div class="price-amount mb-3">33 600 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-extra d-none">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">200 сотрудников</h5>
+          <div class="price-amount mb-3">62 400 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-extra d-none">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">500 сотрудников</h5>
+          <div class="price-amount mb-3">144 000 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-extra d-none">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">2 000 сотрудников</h5>
+          <div class="price-amount mb-3">528 000 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pricing-extra d-none">
+        <div class="price-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="price-icon"><i class="bi bi-people"></i></div>
+            <span class="price-badge">12 месяцев</span>
+          </div>
+          <h5 class="fw-bold mb-2">5 000 сотрудников</h5>
+          <div class="price-amount mb-3">1 260 000 ₽</div>
+          <button class="btn-outline-custom">Выбрать тариф</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button id="show-all-btn" class="btn-outline-custom d-inline-flex align-items-center gap-2" style="width:auto;padding:12px 28px;" onclick="togglePricing()">
+        Все тарифы <i class="bi bi-chevron-down" id="pricing-icon"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" class="py-5 bg-light-green">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ДЕМОНСТРАЦИЯ</div>
+      <h2 class="section-title mb-3">Видео о работе сервиса</h2>
+      <p class="section-muted">Посмотрите, как легко работать с 1С:Кабинет сотрудника</p>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="video-placeholder mb-4">
+          <div class="play-btn"><i class="bi bi-play-fill"></i></div>
+          <div style="position:absolute;bottom:16px;right:16px;color:#9ca3af;font-size:13px;"><i class="bi bi-eye me-1"></i>1.2K просмотров &nbsp; <i class="bi bi-clock me-1"></i>3:45</div>
+        </div>
+        <div class="text-center">
+          <p style="color:var(--muted);" class="mb-3">Хотите увидеть сервис в действии? Запишитесь на персональную демонстрацию</p>
+          <a href="#" class="btn text-white d-inline-flex align-items-center gap-2" style="background:var(--primary); border-radius:8px; font-weight:600; padding:12px 28px;">
+            Записаться на демо <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONDITIONS -->
+<section id="conditions" class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ТРЕБОВАНИЯ</div>
+      <h2 class="section-title mb-3">Условия и ограничения</h2>
+      <p class="section-muted">Проверьте совместимость с вашей системой</p>
+    </div>
+    <div class="row g-4 mb-5">
+      <div class="col-lg-6">
+        <div class="condition-card h-100">
+          <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-check-circle-fill" style="color:var(--primary);"></i>
+            Совместимые программы
+          </h5>
+          <div class="program-badge"><i class="bi bi-box" style="color:var(--primary);"></i>1С:Зарплата и управление персоналом, ред. 3</div>
+          <div class="program-badge"><i class="bi bi-box" style="color:var(--primary);"></i>1С:Зарплата и кадры государственного учреждения, ред. 3</div>
+          <div class="program-badge"><i class="bi bi-box" style="color:var(--primary);"></i>1С:ERP Управление предприятием 2</div>
+          <div class="program-badge"><i class="bi bi-box" style="color:var(--primary);"></i>1С:Комплексная автоматизация 2</div>
+          <div class="program-badge"><i class="bi bi-box" style="color:var(--primary);"></i>1С:Бухгалтерия предприятия, ред. 3 <span style="font-size:12px;color:var(--muted);margin-left:4px;">(ограниченный функционал)</span></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="condition-card h-100">
+          <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-info-circle-fill" style="color:var(--primary);"></i>
+            Настройка и условия
+          </h5>
+          <div class="req-item">
+            <i class="bi bi-shield-check" style="color:var(--primary); margin-top:2px;"></i>
+            <span style="font-size:14px;color:var(--muted);">Для программ ПРОФ и КОРП версий необходим действующий договор сопровождения</span>
+          </div>
+          <div class="req-item">
+            <i class="bi bi-wifi" style="color:var(--primary); margin-top:2px;"></i>
+            <span style="font-size:14px;color:var(--muted);">Для работы сервиса необходим доступ в интернет</span>
+          </div>
+          <div class="req-item">
+            <i class="bi bi-server" style="color:var(--primary); margin-top:2px;"></i>
+            <span style="font-size:14px;color:var(--muted);">Есть возможность использовать локальную версию сервиса «1С:Кабинет сотрудника» на сервере клиента</span>
+          </div>
+          <div class="req-item">
+            <i class="bi bi-gear" style="color:var(--primary); margin-top:2px;"></i>
+            <span style="font-size:14px;color:var(--muted);">Возможна настройка сервиса под индивидуальные процессы компании</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="#" class="btn text-white d-inline-flex align-items-center gap-2" style="background:var(--primary); border-radius:8px; font-weight:600; padding:12px 28px;">
+        Подключить сервис <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-5 bg-light-green">
+  <div class="container-xl py-4">
+    <div class="text-center mb-5">
+      <div class="section-label mb-2">ВОПРОСЫ</div>
+      <h2 class="section-title mb-3">Частые вопросы</h2>
+      <p class="section-muted">Ответы на популярные вопросы о сервисе</p>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Можно ли работать одновременно с бумажными и электронными документами?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Да, переход на КЭДО может быть поэтапным: часть документов продолжает оформляться на бумаге, а часть переводится в электронный вид. Это позволяет адаптировать процессы и сотрудников без резких изменений.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Нужна ли каждому сотруднику электронная подпись?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Да, подписи понадобятся, но выпустить их очень просто. Для сотрудников, которые будут отправлять и подписывать документы со стороны работодателя, понадобится усиленная квалифицированная электронная подпись (УКЭП), а для рядовых сотрудников достаточно простой электронной подписи (ПЭП).</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Как сотрудники получают доступ к сервису?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Сотрудники получают приглашение на корпоративную или личную электронную почту. После регистрации они могут войти в личный кабинет через браузер на компьютере или смартфоне, либо скачать мобильное приложение для iOS или Android.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Насколько безопасно хранить документы онлайн?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Все документы хранятся непосредственно в вашей базе 1С, а не на сторонних серверах. Передача данных осуществляется по защищённому протоколу HTTPS. Доступ к документам строго разграничен по ролям и правам пользователей.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Подходит ли сервис для небольших компаний?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Да, сервис разработан для компаний любого размера — от 10 сотрудников и более. Минимальный тариф рассчитан именно на небольшие организации и доступен по цене.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            Нужна ли отдельная программа?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Нет, 1С:Кабинет сотрудника — это облачный сервис, который интегрируется с вашей существующей программой 1С. Устанавливать отдельное ПО не требуется, достаточно подключить сервис через личный кабинет 1С.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            У меня нет 1С. Как внедрить КЭДО?
+            <i class="bi bi-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">Для работы с 1С:Кабинет сотрудника необходима одна из совместимых программ 1С. Если у вас её нет — мы поможем подобрать и внедрить подходящее решение. Свяжитесь с нами для консультации.</div>
+        </div>
+        <div class="text-center mt-4">
+          <a href="tel:+74951234567" class="btn text-white d-inline-flex align-items-center gap-2" style="background:var(--primary); border-radius:8px; font-weight:600; padding:12px 28px;">
+            Связаться с нами <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-off-white">
+  <div class="container-xl py-4">
+    <div class="cta-banner text-center">
+      <h2 class="mb-3">Готовы перейти на электронный документооборот?</h2>
+      <p class="mb-4" style="opacity:.85; font-size:1.05rem;">Получите бесплатную демонстрацию и 45 дней полного доступа к сервису</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#" class="btn-white btn">Попробовать бесплатно <i class="bi bi-arrow-right ms-1"></i></a>
+        <a href="tel:+74951234567" class="btn btn-outline-light" style="border-radius:8px; font-weight:600; padding:12px 28px;">
+          <i class="bi bi-telephone me-1"></i>+7 (495) 123-45-67
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container-xl">
+    <div class="row g-5 mb-5">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center gap-2 mb-3 footer-logo">
+          <span class="logo-box" style="width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;font-size:11px;font-weight:700;color:#fff;">1С</span>
+          <span class="fw-semibold" style="color:#fff;">Кабинет сотрудника</span>
+        </div>
+        <p style="font-size:14px; color:#9ca3af; max-width:280px;">Современное решение для КЭДО в 1С</p>
+        <div style="font-size:13px; color:#6b7280;"><i class="bi bi-geo-alt me-1"></i>Москва, Россия</div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-title">Навигация</div>
+        <div class="d-flex flex-column gap-2">
+          <a href="#when-needed">Кому нужен</a>
+          <a href="#why-kedo">Преимущества</a>
+          <a href="#how-works">Как работает</a>
+          <a href="#pricing">Цены</a>
+          <a href="#faq">FAQ</a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="footer-title">Документы</div>
+        <div class="d-flex flex-column gap-2">
+          <a href="#">Оферта</a>
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Условия использования</a>
+          <a href="#">152-ФЗ о защите данных</a>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="footer-title">Контакты</div>
+        <div class="d-flex flex-column gap-2">
+          <a href="tel:+74951234567"><i class="bi bi-telephone me-1"></i>+7 (495) 123-45-67</a>
+          <a href="mailto:info@1c-cabinet.ru"><i class="bi bi-envelope me-1"></i>info@1c-cabinet.ru</a>
+          <div style="font-size:14px; color:#6b7280;"><i class="bi bi-clock me-1"></i>Пн–Пт 9:00–18:00 (МСК)</div>
+          <a href="https://t.me/your_channel" target="_blank"><i class="bi bi-telegram me-1"></i>Telegram</a>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="text-center copyright py-2">© 2025 1С Кабинет сотрудника. Все права защищены.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Features tabs
+  function switchTab(id, btn) {
+    document.querySelectorAll('.features-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.features-tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const icon = el.querySelector('.faq-icon');
+    const isOpen = answer.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-answer.open').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-icon.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      icon.classList.add('open');
+    }
+  }
+
+  // Pricing show/hide
+  function togglePricing() {
+    const extras = document.querySelectorAll('.pricing-extra');
+    const btn = document.getElementById('show-all-btn');
+    const icon = document.getElementById('pricing-icon');
+    const isHidden = extras[0].classList.contains('d-none');
+    extras.forEach(el => el.classList.toggle('d-none'));
+    if (isHidden) {
+      btn.innerHTML = 'Свернуть <i class="bi bi-chevron-up" id="pricing-icon"></i>';
+    } else {
+      btn.innerHTML = 'Все тарифы <i class="bi bi-chevron-down" id="pricing-icon"></i>';
+    }
+  }
+</script>
+
+</body>
+</html>
